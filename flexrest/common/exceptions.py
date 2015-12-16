@@ -1,0 +1,2 @@
+class FlexRestBaseException(Exception):
+    pass

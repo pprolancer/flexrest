@@ -196,7 +196,7 @@ Full flask example code:
 Licence
 =======
 
-BSD
+GNU-v2
 
 Requirements
 =================

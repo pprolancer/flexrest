@@ -44,6 +44,7 @@ of various HTTP methods.
 Full flask example code:
 
 .. code:: python
+
     from flask import Flask, Blueprint, redirect, url_for
     from flask_login import LoginManager, current_user, login_user, logout_user, \
         login_required
@@ -190,22 +191,6 @@ Full flask example code:
 
     if __name__ == '__main__':
         app.run(host='localhost', port=5000, debug=False)
-
-
-Hooking it up:
-
-.. code:: python
-
-    # api/urls.py
-    from django.conf.urls.default import url, patterns, include
-
-    from posts.api import PostResource
-
-    urlpatterns = patterns('',
-        # The usual suspects, then...
-
-        url(r'^api/posts/', include(PostResource.urls())),
-    )
 
 
 Licence

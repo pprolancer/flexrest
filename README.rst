@@ -200,10 +200,10 @@ BSD
 
 Requirements
 =================
-flask
-flask-principal
-formencode
-sqlalchemy
+* flask
+* flask-principal
+* formencode
+* sqlalchemy
 
 
 Installation

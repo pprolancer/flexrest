@@ -55,9 +55,7 @@ Full flask example code:
     from sqlalchemy.ext.declarative import declarative_base
     from sqlalchemy import Column, Integer, String, Unicode
 
-    from flexrest.api.rest_api import RestApiResource, \
-        RestApiHandler
-    from flexrest import FlexRestManager
+    from flexrest import RestApiResource, RestApiHandler, FlexRestManager
 
     Base = declarative_base()
 

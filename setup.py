@@ -1,13 +1,17 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
-__version__ = 'dev'
+__version__ = '0.1'
 
 setup(
     name='flexrest',
+    packages=['flexrest'],
     version=__version__,
-    author='pprolancer@gmail.com',
+    author='pprolancer',
+    author_email='pprolancer@gmail.com',
+    url='https://github.com/pprolancer/flexrest',
+    download_url='https://github.com/pprolancer/flexrest/tarball/0.1',
+    keywords=['api', 'rest', 'restful'],
     description='Flexible Flask Rest Api',
-    packages=find_packages(),
     include_package_data=True,
     data_files=[
     ],
@@ -21,12 +25,5 @@ setup(
         'formencode',
         'sqlalchemy',
     ],
-    classifiers=['Development Status :: 1 - Production/Beta',
-                 'Environment :: Web Environment',
-                 'Intended Audience :: Developers',
-                 'Operating System :: OS Independent',
-                 'Topic :: Internet :: WWW/HTTP',
-                 'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
-                 'Topic :: Software Development :: Libraries :: Application Frameworks',
-                 'Topic :: Software Development :: Libraries :: Python Modules', ],
+    classifiers=[],
 )

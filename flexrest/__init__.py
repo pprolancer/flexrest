@@ -1,3 +1,6 @@
+from .api.rest_api import RestApiHandler, RestApiResource
+
+
 class FlexRestManager(object):
     def __init__(self, db_base, db_session_callback, strict_slash=False,
                  app=None):
@@ -21,3 +24,5 @@ class FlexRestManager(object):
         '''
         app.flexrest_manager = self
         app.url_map.strict_slashes = self.strict_slash
+
+__all__ = [RestApiHandler, RestApiResource, FlexRestManager]

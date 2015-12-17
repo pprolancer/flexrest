@@ -183,7 +183,15 @@ Full flask example code:
             else 'N/A'
         return '''
         <h3> an example for flexrest </h3>
-        <p>Current User: {username}</p>
+        <a href="/login"> login </a> | <a href="/logout"> logout </a>
+        <p>Login by: <b>{username}</b></p>
+        Books:
+        <ul>
+            <li><a href='/api/v1/book/'>Books list</a></li>
+            <li><a href='/api/v1/book/1/'>Book#1</a></li>
+            <li><a href='/api/v1/book/2/'>Book#2</a></li>
+        </ul>
+        Users(Need authorization):
         <ul>
             <li><a href='/api/v1/user/'>Users list</a></li>
             <li><a href='/api/v1/user/1/'>User#1</a></li>

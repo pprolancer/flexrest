@@ -198,7 +198,7 @@ Full flask example code:
 Licence
 =======
 
-GNU-v2
+MIT
 
 Requirements
 =================

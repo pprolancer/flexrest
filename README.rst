@@ -2,7 +2,7 @@
 flexrest
 ========
 
-A Flexible REST miniframework for Python.
+A Flexible REST Api miniframework for Python.
 
 Works great with Flask + Sqlalchemy
 
@@ -219,5 +219,12 @@ Installation
 
 .. code:: sh
 
+    $ git clone https://github.com/pprolancer/flexrest.git
+    $ cd flexrest
     $ python setup.py install
+
+    or
+
+    $ pip install flexrest
+
 

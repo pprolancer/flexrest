@@ -6,6 +6,8 @@ A Flexible REST miniframework for Python.
 
 Works great with Flask + Sqlalchemy
 
+Using "formencode" library to validate data
+
 Features
 ========
 

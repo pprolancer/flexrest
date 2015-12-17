@@ -1,6 +1,6 @@
 from setuptools import setup
 
-__version__ = '0.1'
+__version__ = '0.1.1'
 
 setup(
     name='flexrest',
@@ -9,7 +9,7 @@ setup(
     author='pprolancer',
     author_email='pprolancer@gmail.com',
     url='https://github.com/pprolancer/flexrest',
-    download_url='https://github.com/pprolancer/flexrest/tarball/0.1',
+    download_url='https://github.com/pprolancer/flexrest/tarball/%s' % __version__,
     keywords=['api', 'rest', 'restful'],
     description='Flexible Flask Rest Api',
     include_package_data=True,

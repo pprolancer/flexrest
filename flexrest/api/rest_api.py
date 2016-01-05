@@ -542,13 +542,13 @@ class RestApiResource(object):
 
         http_method = self._VERBS.get(action, "GET")
         method = getattr(self._handler, action)
-        # check_permission = None
         _decorators = self._decorators
+        if isinstance(_decorators, dict):
+            _decorators = _decorators.get(action, [])
+        if not isinstance(_decorators, (list, tuple)):
+            _decorators = [_decorators]
         for decorator in _decorators:
-            if isinstance(decorator, dict):
-                decorator = decorator.get(action, None)
-            if decorator:
-                method = decorator(method)
+            method = decorator(method)
 
         app.add_url_rule(
             self._get_route_for(action, prefix),

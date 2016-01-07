@@ -8,6 +8,7 @@ from sqlalchemy import desc, asc
 from ..common.helper import jsonify_status_string, model_to_dict
 
 from ..common.exceptions import FlexRestBaseException
+from ..manager import FlexRestManager
 
 
 class InvalidOrderField(FlexRestBaseException):
@@ -466,7 +467,8 @@ class RestApiResource(object):
 
     def __init__(self, name, route, app, handler, actions=None,
                  decorators=None, identifier='resource_id',
-                 extra_handlers=None, needs_id=None):
+                 extra_handlers=None, needs_id=None,
+                 use_common_decorators=True):
         """
         :name:
             name of the resource. This is being used when registering
@@ -509,6 +511,7 @@ class RestApiResource(object):
         self._name = name
         self._identifier = identifier
         self._decorators = decorators or []
+        self._use_common_decorators = use_common_decorators
 
         for action in actions:
             self.add_url_rule(app, action)
@@ -547,6 +550,8 @@ class RestApiResource(object):
             _decorators = _decorators.get(action, [])
         if not isinstance(_decorators, (list, tuple)):
             _decorators = [_decorators]
+        if self._use_common_decorators:
+            _decorators.extend(FlexRestManager.common_decorators or [])
         for decorator in _decorators:
             method = decorator(method)
 

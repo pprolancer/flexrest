@@ -1,10 +1,11 @@
+from datetime import datetime
 from flask import Flask, Blueprint, redirect, url_for
 from flask_login import LoginManager, current_user, login_user, logout_user, \
     login_required
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Unicode
+from sqlalchemy import Column, Integer, String, Unicode, DateTime
 
 from flexrest import RestApiResource, RestApiHandler, FlexRestManager
 
@@ -19,6 +20,7 @@ class User(Base):
     password = Column(String(88))
     firstname = Column(Unicode(256))
     lastname = Column(Unicode(256))
+    last_activity = Column(DateTime)
 
     def get_id(self):
         return str(self.id)
@@ -72,14 +74,29 @@ def load_user(uid):
         return None
     return user
 
+
+def track_last_activity(fn):
+    def wrapper(*args, **kwargs):
+        user_id = current_user.get_id()
+        if user_id:
+            now = datetime.utcnow()
+            dbs = get_session()
+            dbs.query(User).filter_by(id=user_id).update(
+                {'last_activity': now})
+            dbs.commit()
+            dbs.close()
+        return fn(*args, **kwargs)
+
+    return wrapper
+
 app = Flask(__name__)
 app.secret_key = 'secret'
 lm = LoginManager()
 lm.init_app(app)
 lm.user_loader(load_user)
 lm.session_protection = "strong"
-
-flex = FlexRestManager(db_base=Base, db_session_callback=get_session)
+flex = FlexRestManager(db_base=Base, db_session_callback=get_session,
+                       common_decorators=[track_last_activity])
 flex.init_app(app)
 
 user_bp = Blueprint('user_rest', __name__)

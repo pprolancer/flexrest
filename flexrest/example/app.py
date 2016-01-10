@@ -62,7 +62,9 @@ u1 = User(username='user1')
 u2 = User(username='user2')
 b1 = Book(name='book1')
 b2 = Book(name='book2')
-dbs.add_all([u1, u2, b1, b2])
+b3 = Book(name='book3')
+b4 = Book(name='book4')
+dbs.add_all([u1, u2, b1, b2, b3, b4])
 dbs.commit()
 
 
@@ -117,6 +119,7 @@ book_bp = Blueprint('book_rest', __name__)
 
 
 class BookRestApiHandler(RestApiHandler):
+    max_limit_paging = 2
     resource_class = Book
 
 book_resource = RestApiResource(

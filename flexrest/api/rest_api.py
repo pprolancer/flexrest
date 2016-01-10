@@ -24,6 +24,9 @@ class RestApiHandler(object):
     update_schema = None
     list_pagination = True
     list_default_order = 'id'
+    max_limit_paging = None
+    default_limit_paging = None
+
     need_to_join_with_related_tables_for_order = True
     need_validate_foreign_keys = True
 
@@ -405,9 +408,18 @@ class RestApiHandler(object):
     def get_pagination_params(self, order_fields, default_order):
         try:
             offset = int(request.args.get('offset', 0))
-            default_limit = current_app.config.get(
-                'FLEXREST_DEFAULT_PAGING_LIMIT', 25)
+            default_limit = self.default_limit_paging
+            max_limit = self.max_limit_paging
+
+            if default_limit is None:
+                default_limit = current_app.config.get(
+                    'FLEXREST_DEFAULT_PAGING_LIMIT', 25)
+            if max_limit is None:
+                max_limit = current_app.config.get(
+                    'FLEXREST_MAX_PAGING_LIMIT', 100)
             limit = int(request.args.get('limit', default_limit))
+            if max_limit != 0 and (limit == 0 or limit > max_limit):
+                limit = max_limit
             order_param = request.args.get('order', default_order).strip()
             order = self.validate_ordering(order_param,
                                            valid_fields=order_fields)

@@ -478,9 +478,9 @@ class RestApiResource(object):
     }
 
     def __init__(self, name, route, app, handler, actions=None,
-                 decorators=None, identifier='resource_id',
-                 extra_handlers=None, needs_id=None,
-                 use_common_decorators=True):
+                 decorators=None, custom_decorators=None,
+                 identifier='resource_id', extra_handlers=None,
+                 needs_id=None, use_common_decorators=True):
         """
         :name:
             name of the resource. This is being used when registering
@@ -523,6 +523,7 @@ class RestApiResource(object):
         self._name = name
         self._identifier = identifier
         self._decorators = decorators or []
+        self._custom_decorators = custom_decorators or {}
         self._use_common_decorators = use_common_decorators
 
         for action in actions:
@@ -558,6 +559,9 @@ class RestApiResource(object):
         http_method = self._VERBS.get(action, "GET")
         method = getattr(self._handler, action)
         _decorators = self._decorators
+        _custom_decorators = self._custom_decorators
+        if action in _custom_decorators:
+            _decorators = _custom_decorators[action] or []
         if isinstance(_decorators, dict):
             _decorators = _decorators.get(action, [])
         if not isinstance(_decorators, (list, tuple)):

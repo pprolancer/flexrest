@@ -479,7 +479,7 @@ class RestApiResource(object):
 
     def __init__(self, name, route, app, handler, actions=None,
                  decorators=None, custom_decorators=None,
-                 identifier='resource_id', extra_handlers=None,
+                 identifier='int:resource_id', extra_handlers=None,
                  needs_id=None, use_common_decorators=True):
         """
         :name:
@@ -507,7 +507,9 @@ class RestApiResource(object):
             The handler instance which will handle the requests
 
         :identifier:
-            this will be set as a arguments of _NEED_ID handlers
+            this will be set as a arguments of _NEED_ID handlers.
+            this can be name of argument alone or we can add type of that in
+            start of name. i.e: resource_id | int:resource_id
 
         """
         if needs_id is not None:

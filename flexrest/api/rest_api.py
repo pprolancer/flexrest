@@ -56,7 +56,7 @@ class RestApiHandler(object):
     def get_db_base(self):
         assert current_app.flexrest_manager.db_base is not None, \
             'db_base should not be None'
-        return self.current_app.flexrest_manager.db_base
+        return current_app.flexrest_manager.db_base
 
     def get_query(self, dbs, resource_class=None):
         return dbs.query(resource_class or self.resource_class)
